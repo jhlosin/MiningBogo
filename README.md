@@ -1,8 +1,8 @@
-# React-Native-BoilerPlate
+# MiningBogo
 
-This is my personal react-native starter kit with some libraries.
-This project includes:
+Simple Mining Pool Hub Mining Report
 
+## TechStack
 * Create-React-Native-App(React-Native, Expo)
 * React-Navigation
 * Redux
@@ -10,9 +10,7 @@ This project includes:
 * React-Native-Debugger
 
 ## Installation
-
 Once downloaded, go to its folder and type:
-
 ```
 yarn
 yarn start(or yarn ios / yarn android)
