@@ -34,9 +34,10 @@ const styles = StyleSheet.create({
 })
 
 // Component
-const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
+const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue, symbol, coinPrice }) => {
   const coinName = (coinData.coin).toUpperCase()
   const hashDataData = hashData.data
+  const estimatedProfit = (coinPrice.buy_price * coinData.confirmed).toFixed(0)
   return (
       <Content padder style={styles.container} >
         <Card>
@@ -49,7 +50,7 @@ const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
                 <Col>
                   <Row>
                     <Text style={styles.hashrateTitle}>
-                      Hashrate
+                      해시량
                     </Text>
                   </Row>
                   <Row>
@@ -68,9 +69,12 @@ const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
             </Body>
           </CardItem>
           <CardItem footer bordered>
-            <Text>
-              Balance: {(coinData.confirmed).toFixed(3)}
-            </Text>
+            <Col>
+              <Text>잔고: {(coinData.confirmed).toFixed(3)} {symbol}</Text>
+            </Col>
+            <Col>
+              <Text>예상수익: {estimatedProfit} 원</Text>
+            </Col>
           </CardItem>
         </Card>
       </Content>
@@ -78,14 +82,17 @@ const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
 }
 
 CoinCard.defaultProps = {
-  coinData: {}, hashData: {data: 0}, hashStandard: 'MH/s', hashDivisionValue: 1000000
+  coinData: {}, hashData: {data: 0}, hashStandard: 'MH/s', hashDivisionValue: 1000000,
+  symbol: "ETH", coinPrice: {}
 }
 
 CoinCard.propTypes = {
   coinData: PropTypes.object,
   hashData: PropTypes.object,
+  coinPrice: PropTypes.object,
   hashStandard: PropTypes.string,
-  hashDivisionValue: PropTypes.number
+  hashDivisionValue: PropTypes.number,
+  symbol: PropTypes.string,
 }
 
 export default CoinCard

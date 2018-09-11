@@ -10,21 +10,24 @@ import supportedCoins from '../../config/supportedCoins'
 // Style
 
 // Component
-const CoinCardContainer = ({ allBalances, hashrateData }) => {
+const CoinCardContainer = ({ allBalances, hashrateData, coinPrice }) => {
   const allBalancesData = allBalances.data || []
   return (
     <ScrollView>
       {
         _.map(supportedCoins, (supportedCoin) => {
           return allBalancesData.map((coinData) => {
-            const coinHashData = hashrateData.find((item) => item.coin === coinData.coin) || []
+            const coinHashData = hashrateData.find((item) => item.coin === coinData.coin) || {}
+            const thisCoinPrice = coinPrice.find((coin) => coin.name === coinData.coin) || {}
             if(coinData.coin === supportedCoin.name) {
               return <CoinCard
                       key={coinData.coin}
                       hashStandard={supportedCoin.hashStandard}
                       coinData={coinData}
+                      coinPrice={thisCoinPrice.data}
                       hashData={coinHashData.data}
                       hashDivisionValue={supportedCoin.hashDivisionValue}
+                      symbol={supportedCoin.symbol}
                     />
             }
           })
@@ -36,12 +39,14 @@ const CoinCardContainer = ({ allBalances, hashrateData }) => {
 
 CoinCardContainer.defaultProps = {
   allBalances: {},
-  hashrateData: []
+  hashrateData: [],
+  coinPrice: []
 }
 
 CoinCardContainer.propTypes = {
   allBalances: PropTypes.object,
   hashrateData: PropTypes.array,
+  coinPrice: PropTypes.array,
 }
 
 export default CoinCardContainer

@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types'
 import { Container, Button, Icon, Text, Grid, Col } from 'native-base'
 import * as Animatable from 'react-native-animatable';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 // App Imports
 import { getUserHashrate } from '../module/mph.js'
@@ -15,7 +14,9 @@ import CoinCard from './CoinCard'
 import Error from '../components/Error'
 import * as MiningBogoActions from '../actions/miningBogo';
 import { getUserAllBalances } from '../module/mph'
+import { getCoinKorPrice } from '../module/bithumb'
 import { headerIconsColor } from '../config/colorTheme'
+import supportedCoins from '../config/supportedCoins'
 
 // Style
 const styles = StyleSheet.create({
@@ -82,6 +83,20 @@ export default class Home extends React.Component {
 
       }
     })
+
+    // get currency price info
+    this._fetchCoinPrice()
+
+  }
+  _fetchCoinPrice = () => {
+    supportedCoins.map((coin) => {
+      getCoinKorPrice(coin.symbol, (result) => {
+        this.props.savePriceInfo({
+          name: coin.name,
+          data: result.data
+        })
+      })
+    })
   }
   onPressRefresh = () => {
     // handle refresh button
@@ -112,11 +127,11 @@ export default class Home extends React.Component {
   }
   render() {
     const { apiKey } = this.props.miningBogo
-    const { userAllBalances, userHashrate } = this.props.miningBogo
+    const { userAllBalances, userHashrate, coinPrice } = this.props.miningBogo
     return (
       <Container style={styles.container}>
         { apiKey ? (
-          <CoinCard allBalances={userAllBalances} hashrateData={userHashrate} />
+          <CoinCard coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
         ) : (
           <Error message="Mining pool hub api key is missing or invalid" />
         ) }

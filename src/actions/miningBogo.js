@@ -12,3 +12,8 @@ export const saveUserHashrate = (payload) => ({
   type: 'saveUserHashrate',
   payload
 })
+
+export const savePriceInfo = (payload) => ({
+  type: 'savePriceInfo',
+  payload
+})
