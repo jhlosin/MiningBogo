@@ -1,6 +1,6 @@
 // Imports
 import React from 'react'
-import { StyleSheet, View, Dimensions } from 'react-native'
+import { StyleSheet, View, Dimensions, RefreshControl } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -34,8 +34,7 @@ const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
   const coinName = (coinData.coin).toUpperCase()
   const hashDataData = hashData.data
   return (
-    <View style={styles.container}>
-      <Content padder>
+      <Content padder style={styles.container} >
         <Card>
           <CardItem header bordered>
             <Text>{coinName}</Text>
@@ -64,7 +63,6 @@ const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
           </CardItem>
         </Card>
       </Content>
-    </View>
   )
 }
 

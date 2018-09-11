@@ -41,7 +41,7 @@ export default class SettingsModal extends React.Component {
     }
   }
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('title', 'Settings')
+    title: 'Settings'
   })
   componentDidMount() {
     Expo.SecureStore.getItemAsync('MiningBogoMphApi').then((data) => {

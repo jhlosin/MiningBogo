@@ -27,7 +27,7 @@ export const textColor =  COLOR.blueGrey50
 export const headerBg = COLOR.blueGrey900
 export const headerTitleColor = COLOR.blueGrey50
 export const headerIconsColor = COLOR.blueGrey50
-export const headerTintColor = COLOR.blueGrey50
+export const headerTintColor = COLOR.blueGrey50 //arrow
 
 // Card
 export const cardBackgroundColor = containerBgColor // match with
