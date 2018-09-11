@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
   hashrateTitle: {
     fontSize: 15,
     fontWeight: '600'
+  },
+  hashrateStandard: {
+    fontSize: 12,
+    fontWeight: '600'
   }
 })
 
@@ -43,13 +47,20 @@ const CoinCard = ({ coinData, hashData, hashStandard, hashDivisionValue }) => {
             <Body>
               <Grid>
                 <Col>
-                  <Text style={styles.hashrateTitle}>
-                    Hashrate
-                  </Text>
+                  <Row>
+                    <Text style={styles.hashrateTitle}>
+                      Hashrate
+                    </Text>
+                  </Row>
+                  <Row>
+                    <Text style={styles.hashrateStandard}>
+                      ( {hashStandard} )
+                    </Text>
+                  </Row>
                 </Col>
                 <Col>
                   <Text style={styles.hashrate}>
-                    {(hashDataData / hashDivisionValue).toFixed(2)} {hashStandard}
+                    {(hashDataData / hashDivisionValue).toFixed(2)}
                   </Text>
                 </Col>
               </Grid>

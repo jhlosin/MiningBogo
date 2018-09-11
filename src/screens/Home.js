@@ -5,7 +5,9 @@ import { FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types'
-import { Container, Button, Icon, Text } from 'native-base'
+import { Container, Button, Icon, Text, Grid, Col } from 'native-base'
+import * as Animatable from 'react-native-animatable';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 // App Imports
 import { getUserHashrate } from '../module/mph.js'
@@ -28,7 +30,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   icon: {
-    marginRight: 10,
   },
   nav: {
     flexDirection: 'row'
@@ -44,11 +45,13 @@ const styles = StyleSheet.create({
 // Component
 export default class Home extends React.Component {
   componentDidMount() {
-    this.props.navigation.setParams({ onPressRefresh: this.onPressRefresh })
+    this.props.navigation.setParams({ onPressRefresh: this.onPressRefresh, isFetching: false})
 
-    this.fetchData()
+    this._fetchData()
   }
-  fetchData = () => {
+  _fetchData = () => {
+    this.props.navigation.setParams({ isFetching:true })
+
     // get api token from local stroage
     Expo.SecureStore.getItemAsync('MiningBogoMphApi').then((apiKey) => {
       if (apiKey) { // if exist
@@ -71,6 +74,7 @@ export default class Home extends React.Component {
                     data: hashResult
                   })
                 }
+                this.props.navigation.setParams({ isFetching:false })
               })
             })
           }
@@ -81,20 +85,28 @@ export default class Home extends React.Component {
   }
   onPressRefresh = () => {
     // handle refresh button
-    this.fetchData()
+    this._fetchData()
   }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'MiningBogo',
       headerRight: (
         <View style={styles.nav}>
-          <Button style={styles.icon} iconLeft transparent primary onPress={navigation.getParam('onPressRefresh')}>
-            <Icon name='refresh' />
+          <Button style={styles.icon} transparent primary onPress={navigation.getParam('onPressRefresh')}>
+            {
+              navigation.getParam('isFetching') ? (
+                <Animatable.View animation="rotate" easing="linear" iterationCount="infinite" duration={800}>
+                  <Icon name='refresh' />
+                </Animatable.View>
+              ) : (
+                <Icon name='refresh' />
+              )
+            }
           </Button>
-          <Button style={styles.icon} iconLeft transparent primary onPress={() => navigation.navigate('SettingsModal')}>
+          <Button style={styles.icon} transparent primary onPress={() => navigation.navigate('SettingsModal')}>
             <Icon name='settings' />
           </Button>
-      </View>
+        </View>
       )
     }
   }
@@ -106,7 +118,7 @@ export default class Home extends React.Component {
         { apiKey ? (
           <CoinCard allBalances={userAllBalances} hashrateData={userHashrate} />
         ) : (
-          <Error message="Add mining pool hub api key first" />
+          <Error message="Mining pool hub api key is missing or invalid" />
         ) }
       </Container>
     )
