@@ -1,6 +1,6 @@
 // Imports
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   dispatch => bindActionCreators(MiningBogoActions, dispatch)
 )
 
-
 // Component
 export default class Home extends React.Component {
   componentDidMount() {
@@ -80,7 +79,6 @@ export default class Home extends React.Component {
             })
           }
         })
-
       }
     })
 
@@ -126,12 +124,20 @@ export default class Home extends React.Component {
     }
   }
   render() {
-    const { apiKey } = this.props.miningBogo
-    const { userAllBalances, userHashrate, coinPrice } = this.props.miningBogo
+    const { userAllBalances, userHashrate, coinPrice, apiKey } = this.props.miningBogo
     return (
       <Container style={styles.container}>
         { apiKey ? (
-          <CoinCard coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                onRefresh={() => this._fetchData()}
+                refreshing={this.props.navigation.getParam('isFetching')}
+              />
+            }
+          >
+            <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
+          </ScrollView>
         ) : (
           <Error message="Mining pool hub api key is missing or invalid" />
         ) }

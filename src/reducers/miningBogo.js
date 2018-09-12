@@ -12,6 +12,12 @@ const actionsMap = {
       apiKey: action.payload
     }
   },
+  saveSelectedCoin(state, action) {
+    return {
+      ...state,
+      selectedCoin: action.payload
+    }
+  },
   saveUserAllBalances(state, action) {
     return {
       ...state,

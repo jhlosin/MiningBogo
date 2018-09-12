@@ -15,3 +15,9 @@ Once downloaded, go to its folder and type:
 yarn
 yarn start(or yarn ios / yarn android)
 ```
+
+## Debugging
+Launch RNDebugger by the following command.
+```
+open "rndebugger://set-debugger-loc?host=localhost&port=8081"`
+```

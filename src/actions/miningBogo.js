@@ -17,3 +17,8 @@ export const savePriceInfo = (payload) => ({
   type: 'savePriceInfo',
   payload
 })
+
+export const saveSelectedCoin = (payload) => ({
+  type: 'saveSelectedCoin',
+  payload
+})

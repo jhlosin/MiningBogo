@@ -41,9 +41,7 @@ const getUserTransactions = async (coin, apiKey, cb) => {
   }
 }
 
-// const verifyApiToken = (apiKey, cb) => {
-//   getUserAllBalances(apiKey, (result) => cb(result))
-// }
+getUserAllBalances('710f50780ea967a32f0662dc8d2f01d8dcda34f2ae66c97ba421697c78cdc717', (result) => console.log(result))
 
 export {
   getUserHashrate,
