@@ -34,3 +34,6 @@ export const headerTintColor = COLOR[mainColor + '50'] //arrow
 // CoinCard
 export const cardBackgroundColor = containerBgColor // match with
 export const hashRateFontColor = '#ffdc05'
+
+// Homeview
+export const errMsgColor = COLOR[mainColor + '900']

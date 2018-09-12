@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
   hashrateStandard: {
     fontSize: 12,
     fontWeight: '600'
+  },
+  footer: {
+    fontSize: 13
   }
 })
 
@@ -83,10 +86,10 @@ export default class CoinCard extends React.Component {
             </CardItem>
             <CardItem footer bordered>
               <Col>
-                <Text>잔고: {(coinData.confirmed).toFixed(3)} {symbol}</Text>
+                <Text style={styles.footer}>잔고: {(coinData.confirmed).toFixed(3)} {symbol}</Text>
               </Col>
               <Col>
-                <Text>예상수익: {estimatedProfit} 원</Text>
+                <Text style={styles.footer}>예상수익: {estimatedProfit} 원</Text>
               </Col>
             </CardItem>
           </Card>

@@ -18,6 +18,9 @@ import { headerIconsColor } from '../config/colorTheme'
 import supportedCoins from '../config/supportedCoins'
 import CoinPriceInfo from './CoinPriceInfo'
 
+// dev Import
+import { resetLocalStorage } from '../utils'
+
 // Style
 const styles = StyleSheet.create({
   container: {
@@ -45,16 +48,16 @@ const styles = StyleSheet.create({
 // Component
 export default class Home extends React.Component {
   componentDidMount() {
+    // resetLocalStorage() // for dev purpose
     this.props.navigation.setParams({ onPressRefresh: this.onPressRefresh, isFetching: false})
 
     this._fetchData()
   }
   _fetchData = () => {
-    this.props.navigation.setParams({ isFetching:true })
-
     // get api token from local stroage
     Expo.SecureStore.getItemAsync('MiningBogoMphApi').then((apiKey) => {
       if (apiKey) { // if exist
+        this.props.navigation.setParams({ isFetching:true })
         // ger mph user all balance
         getUserAllBalances(apiKey, (result) => { // check if the api key is valid
           if (result !== 'error') {
@@ -127,21 +130,22 @@ export default class Home extends React.Component {
     const { userAllBalances, userHashrate, coinPrice, apiKey } = this.props.miningBogo
     return (
       <Container style={styles.container}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              onRefresh={() => this._fetchData()}
+              refreshing={this.props.navigation.getParam('isFetching') || false}
+            />
+          }
+        >
+        <CoinPriceInfo coinPrice={coinPrice} />
         { apiKey ? (
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                onRefresh={() => this._fetchData()}
-                refreshing={this.props.navigation.getParam('isFetching')}
-              />
-            }
-          >
-            <CoinPriceInfo coinPrice={coinPrice} />
             <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
-          </ScrollView>
+
         ) : (
-          <Error message="Mining pool hub api key is missing or invalid" />
+          <Error message1="마풀허 API key 정보가 없거나 바르지 않습니다." message2="등록 후 새로고침 해주세요." />
         ) }
+        </ScrollView>
       </Container>
     )
   }

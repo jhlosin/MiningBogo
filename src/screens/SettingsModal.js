@@ -69,7 +69,7 @@ export default class SettingsModal extends React.Component {
           onChangeText={(apiKey) => this.setState({apiKey})}
           value={apiKey}
         />
-        <Button block primary onPress={this.onPressSave}>
+      <Button block dark onPress={this.onPressSave}>
             <Text style={styles.buttonText}>SAVE</Text>
         </Button>
     </Container>
