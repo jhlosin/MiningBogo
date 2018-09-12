@@ -1,7 +1,6 @@
 // Imports
 import React from 'react'
 import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native'
-import { FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types'
@@ -17,6 +16,7 @@ import { getUserAllBalances } from '../module/mph'
 import { getCoinKorPrice } from '../module/bithumb'
 import { headerIconsColor } from '../config/colorTheme'
 import supportedCoins from '../config/supportedCoins'
+import CoinPriceInfo from './CoinPriceInfo'
 
 // Style
 const styles = StyleSheet.create({
@@ -136,6 +136,7 @@ export default class Home extends React.Component {
               />
             }
           >
+            <CoinPriceInfo coinPrice={coinPrice} />
             <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
           </ScrollView>
         ) : (

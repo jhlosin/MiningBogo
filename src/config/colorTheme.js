@@ -33,4 +33,4 @@ export const headerTintColor = COLOR[mainColor + '50'] //arrow
 
 // CoinCard
 export const cardBackgroundColor = containerBgColor // match with
-export const hashRateBgColor = '#ffdc05'
+export const hashRateFontColor = '#ffdc05'

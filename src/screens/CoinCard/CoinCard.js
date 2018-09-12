@@ -11,7 +11,7 @@ import { COLOR } from 'react-native-material-ui';
 // App Imports
 import { getUserHashrate } from '../../module/mph'
 import * as MiningBogoActions from '../../actions/miningBogo';
-import { cardBackgroundColor, hashRateBgColor } from '../../config/colorTheme'
+import { cardBackgroundColor, hashRateFontColor } from '../../config/colorTheme'
 
 // Style
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: cardBackgroundColor
   },
   hashrate: {
-    color: hashRateBgColor,
+    color: hashRateFontColor,
     fontSize: 30,
     fontWeight: '600'
   },
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
 // Component
 export default class CoinCard extends React.Component {
   onPressCard = () => {
-    console.log('yo yo did it.')
     this.props.navigation.navigate('CoinDetail')
     this.props.saveSelectedCoin(this.props.coinData)
   }

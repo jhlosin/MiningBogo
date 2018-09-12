@@ -15,7 +15,6 @@ import * as MiningBogoActions from '../actions/miningBogo';
 export default class CoinDetail extends React.Component {
   render() {
     const { selectedCoin } = this.props.miningBogo
-    console.log(this.props)
     return (
       <Container>
         <Text>{selectedCoin.coin}</Text>
