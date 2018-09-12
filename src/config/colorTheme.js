@@ -37,3 +37,6 @@ export const hashRateFontColor = '#ffdc05'
 
 // Homeview
 export const errMsgColor = COLOR[mainColor + '900']
+
+// CoinDetailView
+export const coinDetailViewTitleColor = COLOR[mainColor + '900']
