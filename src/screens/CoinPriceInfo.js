@@ -6,17 +6,16 @@ import { Container, Text, Card, CardItem, Header, Content, Body, Icon } from 'na
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 // App Imports
-import { cardBackgroundColor, hashRateFontColor } from '../config/colorTheme'
+import { coinPriceInfoBgColor } from '../config/colorTheme'
 import { numberWithCommas } from '../utils'
 
 // Styles
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    backgroundColor: cardBackgroundColor,
   },
   columnBox: {
-    backgroundColor: '#353c59',
+    backgroundColor: coinPriceInfoBgColor,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,

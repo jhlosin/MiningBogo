@@ -1,6 +1,6 @@
 // Imports
 import React from 'react'
-import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native'
+import { StyleSheet, View, ScrollView, RefreshControl, Image } from 'react-native'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types'
@@ -33,10 +33,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  icon: {
-  },
   nav: {
     flexDirection: 'row'
+  },
+  icon: {
+    color: headerIconsColor
+  },
+  logo: {
+    height: 60,
+    width: 150,
   }
 });
 
@@ -105,22 +110,24 @@ export default class Home extends React.Component {
   }
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'MiningBogo',
+      headerTitle: (
+        <Image style={styles.logo} source={require('../assets/logo_small1.png')} />
+      ),
       headerRight: (
         <View style={styles.nav}>
-          <Button style={styles.icon} transparent primary onPress={navigation.getParam('onPressRefresh')}>
+          <Button transparent primary onPress={navigation.getParam('onPressRefresh')}>
             {
               navigation.getParam('isFetching') ? (
                 <Animatable.View animation="rotate" easing="linear" iterationCount="infinite" duration={800}>
-                  <Icon name='refresh' />
+                  <Icon style={styles.icon} name='refresh' />
                 </Animatable.View>
               ) : (
-                <Icon name='refresh' />
+                <Icon style={styles.icon} name='refresh' />
               )
             }
           </Button>
-          <Button style={styles.icon} transparent primary onPress={() => navigation.navigate('SettingsModal')}>
-            <Icon name='settings' />
+          <Button transparent primary onPress={() => navigation.navigate('SettingsModal')}>
+            <Icon style={styles.icon} name='settings' />
           </Button>
         </View>
       )

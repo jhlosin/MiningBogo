@@ -19,5 +19,5 @@ yarn start(or yarn ios / yarn android)
 ## Debugging
 Launch RNDebugger by the following command.
 ```
-open "rndebugger://set-debugger-loc?host=localhost&port=8081"`
+open "rndebugger://set-debugger-loc?host=localhost&port=8081"
 ```
