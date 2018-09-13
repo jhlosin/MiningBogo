@@ -1,6 +1,6 @@
 {
   "name": "MiningBogo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "jest-expo": "^27.0.0",
@@ -37,5 +37,9 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0"
+  },
+  "author": {
+    "name": "Juhwan Park",
+    "email": "juhwanpark421@gmail.com"
   }
 }
