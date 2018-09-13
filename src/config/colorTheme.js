@@ -39,4 +39,5 @@ export const hashRateFontColor = '#ffdc05'
 export const errMsgColor = COLOR[mainColor + '900']
 
 // CoinDetailView
+export const coinDetailViewTextColor = COLOR[mainColor + '900']
 export const coinDetailViewTitleColor = COLOR[mainColor + '900']

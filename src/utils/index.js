@@ -5,3 +5,7 @@ export const numberWithCommas = (x) => {
 export const resetLocalStorage = async () => {
   await Expo.SecureStore.deleteItemAsync('MiningBogoMphApi')
 }
+
+export const getTimeStampedUrl = (url) => {
+  return url + '&' + new Date().getTime()
+}

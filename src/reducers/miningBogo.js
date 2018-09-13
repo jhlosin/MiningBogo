@@ -2,7 +2,7 @@
 import _ from 'lodash'
 
 // Initial State
-const initialState = {apiKey: '', coinPrice: [], userHashrate: [], userAllBalances: {}};
+const initialState = {apiKey: '', coinPrice: [], userHashrate: [], userAllBalances: {}, dashboardData: []};
 
 // Reducers
 const actionsMap = {
@@ -27,11 +27,11 @@ const actionsMap = {
   saveUserHashrate(state, action) {
     let { userHashrate } = state
     const coinName = action.payload.coin
-    const coinFoundInDex = _.findIndex(userHashrate, (item) => item.coin === coinName)
+    const coinFoundIndex = _.findIndex(userHashrate, (item) => item.coin === coinName)
 
-    if(coinFoundInDex !== -1) {
+    if(coinFoundIndex !== -1) {
       // update
-      userHashrate[coinFoundInDex] = action.payload
+      userHashrate[coinFoundIndex] = action.payload
     } else {
       // push
       userHashrate.push(action.payload)
@@ -42,14 +42,32 @@ const actionsMap = {
       userHashrate
     }
   },
+  saveDashboardData(state, action) {
+    let { dashboardData } = state
+    const coinName = action.payload.name
+    const coinFoundIndex = _.findIndex(dashboardData, (item) => item.name === coinName)
+
+    if(coinFoundIndex !== -1) {
+      // update
+      dashboardData[coinFoundIndex] = action.payload
+    } else {
+      // push
+      dashboardData.push(action.payload)
+    }
+
+    return {
+      ...state,
+      dashboardData
+    }
+  },
   savePriceInfo(state, action) {
     let { coinPrice } = state
     const coinName = action.payload.name
-    const coinFoundInDex = _.findIndex(coinPrice, (item) => item.name === coinName)
+    const coinFoundIndex = _.findIndex(coinPrice, (item) => item.name === coinName)
 
-    if(coinFoundInDex !== -1) {
+    if(coinFoundIndex !== -1) {
       // update
-      coinPrice[coinFoundInDex] = action.payload
+      coinPrice[coinFoundIndex] = action.payload
     } else {
       // push
       coinPrice.push(action.payload)

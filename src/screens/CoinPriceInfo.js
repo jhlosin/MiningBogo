@@ -42,8 +42,8 @@ const CoinPriceInfo = ({ coinPrice }) => {
     <View  style={styles.container} >
       <Grid>
           {coinToDisplay.map((coin, index) => {
-            const thisCoinPriceInfo = coinPrice.find((priceInfo) => priceInfo.name === coin.name) || {data: {average_price: '0'}}
-            const averagePrice = thisCoinPriceInfo.data.average_price * 1
+            const thisCoinPriceInfo = coinPrice.find((priceInfo) => priceInfo.name === coin.name) || {data: {buy_price: '0'}}
+            const averagePrice = thisCoinPriceInfo.data.buy_price * 1
             return (
               <Col key={index} style={styles.columnBox}>
                 <Row>
