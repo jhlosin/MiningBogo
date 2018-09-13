@@ -8,6 +8,7 @@ import CounterScreen from './screens/Counter'
 import SettingsModal from './screens/SettingsModal'
 import CoinDetail from './screens/CoinDetail'
 import { headerBg, headerTitleColor, headerTintColor } from './config/colorTheme'
+import LoadingScreen from './components/LoadingScreen'
 
 // ignore warning from remote debugger
 YellowBox.ignoreWarnings(['Remote debugger']);
@@ -34,14 +35,27 @@ const RootStack = createStackNavigator({
 )
 
 export default class App extends React.Component {
+  state = {
+    loaded: false
+  }
+  loading = (cb) => {
+    setTimeout(cb, 4000)
+  }
+
   // load native base custom fonts http://docs.nativebase.io/docs/GetStarted.html
   async componentWillMount() {
+    this.loading(() => this.setState({loaded: true}))
+
     await Expo.Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
     });
   }
   render() {
-    return <RootStack />
+    if (this.state.loaded) {
+      return <RootStack />
+    } else {
+      return <LoadingScreen />
+    }
   }
 }

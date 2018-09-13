@@ -44,3 +44,6 @@ export const coinDetailViewTitleColor = COLOR[mainColor + '900']
 
 // CoinPriceInfo
 export const coinPriceInfoBgColor = COLOR[mainColor + '800']
+
+// LoadingScreen
+export const loadingScreenBgColor = COLOR[mainColor + '900']
