@@ -1,6 +1,6 @@
 # MiningBogo
 
-Simple Mining Pool Hub Mining Report
+Simple Mining Pool Hub Mining Report for Android
 
 ## TechStack
 * Create-React-Native-App(React-Native, Expo)
@@ -8,8 +8,18 @@ Simple Mining Pool Hub Mining Report
 * Redux
 * Redux Thunk
 * React-Native-Debugger
+* native-base
 
-## Installation
+## [PlayStore](https://play.google.com/store/apps/details?id=com.juhwanpark421.moningbogo)
+
+## Screenshots
+<p align="center">
+  <img src="../master/src/assets/screenshot1.jpeg" width="200" alt="screenshot">
+  <img src="../master/src/assets/screenshot2.jpeg" width="200" alt="screenshot">
+  <img src="../master/src/assets/screenshot3.jpeg" width="200" alt="screenshot">
+</p>
+
+## Development Installation
 Once downloaded, go to its folder and type:
 ```
 yarn
