@@ -24,6 +24,16 @@ export const cardBorderColor = '#0c855a'//COLOR[mainColor + '700']
 // text
 export const textColor = '#efefef' //COLOR[mainColor + '50']
 
+// tab
+export const tabDefaultBg = secondColor
+export const topTabBarTextColor = COLOR[mainColor + '50']
+export const topTabBarActiveTextColor = COLOR[mainColor + '50']
+export const topTabBarBorderColor = secondColor
+export const topTabBarActiveBorderColor = "#6ac9a4"
+
+// tabs
+export const tabBgColor = "#F8F8F8"
+
 //--------- APP THEME
 // header
 export const headerBg = COLOR[mainColor + '900']

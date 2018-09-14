@@ -48,13 +48,7 @@ const styles = StyleSheet.create({
 
 // Component
 export default class Home extends React.Component {
-  state = {
-    apiKey: ''
-  }
-  componentWillMount() {
-    // for faster display
-    getMphApiKeyFromLocalStorage(apiKey => this.setState({apiKey}))
-  }
+
   componentDidMount() {
     // resetLocalStorage() // for dev purpose
     this.props.navigation.setParams({ onPressRefresh: this.onPressRefresh, isFetching: false})
@@ -108,7 +102,10 @@ export default class Home extends React.Component {
     })
   }
   onPressRefresh = () => {
-    // handle refresh button
+    // render the screenagain
+    this.forceUpdate()
+
+    // fetch data
     this._fetchData()
   }
   static navigationOptions = ({ navigation }) => {
@@ -120,8 +117,7 @@ export default class Home extends React.Component {
     }
   }
   render() {
-    const { userAllBalances, userHashrate, coinPrice } = this.props.miningBogo
-    const { apiKey } = this.state
+    const { userAllBalances, userHashrate, coinPrice, apiKey } = this.props.miningBogo
     const isFetching = this.props.navigation.getParam('isFetching')
     return (
       <Container style={styles.container}>

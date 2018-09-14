@@ -2,7 +2,14 @@
 import _ from 'lodash'
 
 // Initial State
-const initialState = {apiKey: '', coinPrice: [], userHashrate: [], userAllBalances: {}, dashboardData: []};
+const initialState = {
+  apiKey: '',
+  coinPrice: [],
+  userHashrate: [],
+  userAllBalances: {},
+  dashboardData: [],
+  userWorkers: []
+};
 
 // Reducers
 const actionsMap = {
@@ -58,6 +65,24 @@ const actionsMap = {
     return {
       ...state,
       dashboardData
+    }
+  },
+  saveUserWorkers(state, action) {
+    let { userWorkers } = state
+    const coinName = action.payload.name
+    const coinFoundIndex = _.findIndex(userWorkers, (item) => item.name === coinName)
+
+    if(coinFoundIndex !== -1) {
+      // update
+      userWorkers[coinFoundIndex] = action.payload
+    } else {
+      // push
+      userWorkers.push(action.payload)
+    }
+
+    return {
+      ...state,
+      userWorkers
     }
   },
   savePriceInfo(state, action) {

@@ -5,8 +5,10 @@ import { Platform, Dimensions, PixelRatio } from "react-native";
 import {
   toolbarBtnColor, toolbarDefaultBg,
   brandPrimary, brandDark, brandLight,
-  containerBgColor, cardDefaultBg, cardBorderColor,
-  textColor
+  containerBgColor, cardDefaultBg, cardBorderColor, textColor,
+  tabDefaultBg, topTabBarTextColor, topTabBarActiveTextColor,
+  topTabBarBorderColor, topTabBarActiveBorderColor,
+  tabBgColor
 } from '../../src/config/colorTheme'
 
 const deviceHeight = Dimensions.get("window").height;
@@ -234,14 +236,14 @@ export default {
   inverseSpinnerColor: "#1A191B",
 
   // Tab
-  tabDefaultBg: "#3F51B5",
-  topTabBarTextColor: "#b3c7f9",
-  topTabBarActiveTextColor: "#fff",
-  topTabBarBorderColor: "#fff",
-  topTabBarActiveBorderColor: "#fff",
+  tabDefaultBg,
+  topTabBarTextColor,
+  topTabBarActiveTextColor,
+  topTabBarBorderColor,
+  topTabBarActiveBorderColor,
 
   // Tabs
-  tabBgColor: "#F8F8F8",
+  tabBgColor,
   tabFontSize: 15,
 
   // Text

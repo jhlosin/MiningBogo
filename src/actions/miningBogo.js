@@ -27,3 +27,8 @@ export const saveDashboardData = (payload) => ({
   type: 'saveDashboardData',
   payload
 })
+
+export const saveUserWorkers = (payload) => ({
+  type: 'saveUserWorkers',
+  payload
+})
