@@ -10,6 +10,7 @@ import { Container } from 'native-base'
 // App Imports
 import * as MiningBogo from '../actions/miningBogo';
 import { textColor } from '../config/colorTheme'
+import { getMphApiKeyFromLocalStorage } from '../utils'
 
 // Style
 const styles = StyleSheet.create({
@@ -44,9 +45,7 @@ export default class SettingsModal extends React.Component {
     title: 'Settings'
   })
   componentDidMount() {
-    Expo.SecureStore.getItemAsync('MiningBogoMphApi').then((data) => {
-      if (data) this.setState({ apiKey: data })
-    })
+    getMphApiKeyFromLocalStorage(apiKey => { if (apiKey) this.setState({ apiKey }) })
   }
   onPressSave = async () => {
     // save the data to android local storage
@@ -65,7 +64,7 @@ export default class SettingsModal extends React.Component {
         <TextField
           containerStyle={styles.textFieldContainer}
           multiline
-          label="Mining Pool Hub API Key"
+          label="마이닝풀허브 API 키"
           onChangeText={(apiKey) => this.setState({apiKey})}
           value={apiKey}
         />

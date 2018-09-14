@@ -17,6 +17,8 @@ import { getCoinKorPrice } from '../module/bithumb'
 import { headerIconsColor } from '../config/colorTheme'
 import supportedCoins from '../config/supportedCoins'
 import CoinPriceInfo from './CoinPriceInfo'
+import HomeHeaderRight from '../components/HomeHeaderRight'
+import { getMphApiKeyFromLocalStorage } from '../utils'
 
 // dev Import
 import { resetLocalStorage } from '../utils'
@@ -33,12 +35,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  nav: {
-    flexDirection: 'row'
-  },
-  icon: {
-    color: headerIconsColor
-  },
   logo: {
     height: 60,
     width: 150,
@@ -52,6 +48,13 @@ const styles = StyleSheet.create({
 
 // Component
 export default class Home extends React.Component {
+  state = {
+    apiKey: ''
+  }
+  componentWillMount() {
+    // for faster display
+    getMphApiKeyFromLocalStorage(apiKey => this.setState({apiKey}))
+  }
   componentDidMount() {
     // resetLocalStorage() // for dev purpose
     this.props.navigation.setParams({ onPressRefresh: this.onPressRefresh, isFetching: false})
@@ -60,40 +63,40 @@ export default class Home extends React.Component {
   }
   _fetchData = () => {
     // get api token from local stroage
-    Expo.SecureStore.getItemAsync('MiningBogoMphApi').then((apiKey) => {
-      if (apiKey) { // if exist
+    getMphApiKeyFromLocalStorage(apiKey => {
+      if (apiKey) {
         this.props.navigation.setParams({ isFetching:true })
-        // ger mph user all balance
-        getUserAllBalances(apiKey, (result) => { // check if the api key is valid
-          if (result !== 'error') {
-
-            // save the key if valid
-            this.props.saveMphApiKey(apiKey)
-
-            // save allUserBalance to redux store
-            this.props.saveUserAllBalances(result)
-
-            result.data.map((item) => {
-              // get coin hashrate
-              getUserHashrate(item.coin, apiKey, (hashResult) => {
-                if (hashResult !== 'error') {
-                  this.props.saveUserHashrate({
-                    coin: item.coin,
-                    data: hashResult
-                  })
-                }
-                this.props.navigation.setParams({ isFetching:false })
-              })
-            })
-          }
-        })
+        this._fetchMphHomeData(apiKey)
       }
     })
-
-    // get currency price info
+    // get currency price info(bithumb)
     this._fetchCoinPrice()
 
   }
+  _fetchMphHomeData = (apiKey) => {
+    // ger mph user all balance
+    getUserAllBalances(apiKey, (result) => { // check if the api key is valid
+      if (result === 'error') return console.log('error getting userAllBalances')
+      // save the key if valid
+      this.props.saveMphApiKey(apiKey)
+
+      // save allUserBalance to redux store
+      this.props.saveUserAllBalances(result)
+
+      result.data.map((item) => {
+        // get coin hashrate
+        getUserHashrate(item.coin, apiKey, (hashResult) => {
+          if (result === 'error') return console.log('error getting userHashrate')
+          this.props.saveUserHashrate({
+            coin: item.coin,
+            data: hashResult
+          })
+          this.props.navigation.setParams({ isFetching:false })
+        })
+      })
+    })
+  }
+
   _fetchCoinPrice = () => {
     supportedCoins.map((coin) => {
       getCoinKorPrice(coin.symbol, (result) => {
@@ -113,28 +116,13 @@ export default class Home extends React.Component {
       headerTitle: (
         <Image style={styles.logo} source={require('../assets/logo_small1.png')} />
       ),
-      headerRight: (
-        <View style={styles.nav}>
-          <Button transparent primary onPress={navigation.getParam('onPressRefresh')}>
-            {
-              navigation.getParam('isFetching') ? (
-                <Animatable.View animation="rotate" easing="linear" iterationCount="infinite" duration={800}>
-                  <Icon style={styles.icon} name='refresh' />
-                </Animatable.View>
-              ) : (
-                <Icon style={styles.icon} name='refresh' />
-              )
-            }
-          </Button>
-          <Button transparent primary onPress={() => navigation.navigate('SettingsModal')}>
-            <Icon style={styles.icon} name='settings' />
-          </Button>
-        </View>
-      )
+      headerRight: <HomeHeaderRight navigation={navigation} />
     }
   }
   render() {
-    const { userAllBalances, userHashrate, coinPrice, apiKey } = this.props.miningBogo
+    const { userAllBalances, userHashrate, coinPrice } = this.props.miningBogo
+    const { apiKey } = this.state
+    const isFetching = this.props.navigation.getParam('isFetching')
     return (
       <Container style={styles.container}>
         <ScrollView
@@ -146,12 +134,14 @@ export default class Home extends React.Component {
           }
         >
         <CoinPriceInfo coinPrice={coinPrice} />
-        { apiKey ? (
-            <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
-
-        ) : (
+        { !apiKey ? (
           <Error message1="마풀허 API key 정보가 없거나 바르지 않습니다." message2="등록 후 새로고침 해주세요." />
-        ) }
+          ) : isFetching ? (
+            <Error message1="데이터 불러오는 중..." />
+          ) : (
+            <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
+          )
+        }
         </ScrollView>
       </Container>
     )

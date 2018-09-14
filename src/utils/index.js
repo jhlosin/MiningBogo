@@ -9,3 +9,8 @@ export const resetLocalStorage = async () => {
 export const getTimeStampedUrl = (url) => {
   return url + '&' + new Date().getTime()
 }
+
+// LocalStorage
+export const getMphApiKeyFromLocalStorage = async (cb) => {
+  await Expo.SecureStore.getItemAsync('MiningBogoMphApi').then(key => cb(key))
+}

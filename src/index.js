@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation';
 import { YellowBox } from 'react-native';
 // App Imports
 import HomeScreen from './screens/Home'
-import CounterScreen from './screens/Counter'
 import SettingsModal from './screens/SettingsModal'
 import CoinDetail from './screens/CoinDetail'
 import { headerBg, headerTitleColor, headerTintColor } from './config/colorTheme'
@@ -15,7 +14,6 @@ YellowBox.ignoreWarnings(['Remote debugger']);
 
 const RootStack = createStackNavigator({
   Home: HomeScreen,
-  Counter: CounterScreen,
   SettingsModal: SettingsModal,
   CoinDetail: CoinDetail,
 },
