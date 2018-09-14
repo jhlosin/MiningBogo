@@ -17,6 +17,7 @@ Simple Mining Pool Hub Mining Report for Android
   <img src="../master/src/assets/screenshot1.jpeg" width="200" alt="screenshot">
   <img src="../master/src/assets/screenshot2.jpeg" width="200" alt="screenshot">
   <img src="../master/src/assets/screenshot3.jpeg" width="200" alt="screenshot">
+  <img src="../master/src/assets/screenshot4.jpeg" width="200" alt="screenshot">
 </p>
 
 ## Development Installation

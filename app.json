@@ -5,7 +5,7 @@
     "description": "simple mining pool hub report",
     "slug": "mining-bogo",
     "privacy": "public",
-    "version": "1.0",
+    "version": "1.1.0",
     "icon": "./src/assets/appIcon.png",
     "primaryColor": "#212121",
     "githubUrl": "https://github.com/jhlosin/MiningBogo",
