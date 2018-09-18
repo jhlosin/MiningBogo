@@ -1,10 +1,10 @@
 // Imports
 import React from 'react'
-import { StyleSheet, View, ScrollView, RefreshControl, Image } from 'react-native'
+import { StyleSheet, View, ScrollView, RefreshControl, Image, ToastAndroid } from 'react-native'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types'
-import { Container, Button, Icon, Text, Grid, Col } from 'native-base'
+import { Container, Button, Icon, Text, Grid, Col, Toast } from 'native-base'
 import * as Animatable from 'react-native-animatable';
 
 // App Imports
@@ -70,7 +70,11 @@ export default class Home extends React.Component {
   _fetchMphHomeData = (apiKey) => {
     // ger mph user all balance
     getUserAllBalances(apiKey, (result) => { // check if the api key is valid
-      if (result === 'error') return console.log('error getting userAllBalances')
+      if (result === 'error') {
+        this.props.navigation.setParams({ isFetching:false })
+        ToastAndroid.show('마풀허 API키를 확인해 주세요.', ToastAndroid.SHORT);
+        return console.log('error getting userAllBalances')
+      }
       // save the key if valid
       this.props.saveMphApiKey(apiKey)
 
@@ -80,7 +84,11 @@ export default class Home extends React.Component {
       result.data.map((item) => {
         // get coin hashrate
         getUserHashrate(item.coin, apiKey, (hashResult) => {
-          if (result === 'error') return console.log('error getting userHashrate')
+          if (result === 'error') {
+            this.props.navigation.setParams({ isFetching:false })
+            ToastAndroid.show('마풀허 API키를 확인해 주세요.', ToastAndroid.SHORT);
+            return console.log('error getting userHashrate')
+          }
           this.props.saveUserHashrate({
             coin: item.coin,
             data: hashResult
@@ -129,15 +137,8 @@ export default class Home extends React.Component {
             />
           }
         >
-        <CoinPriceInfo coinPrice={coinPrice} />
-        { !apiKey ? (
-          <Error message1="마풀허 API key 정보가 없거나 바르지 않습니다." message2="등록 후 새로고침 해주세요." />
-          ) : isFetching ? (
-            <Error message1="데이터 불러오는 중..." />
-          ) : (
-            <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} />
-          )
-        }
+          <CoinPriceInfo coinPrice={coinPrice} />
+          { apiKey ? <CoinCard navigation={this.props.navigation} coinPrice={coinPrice} allBalances={userAllBalances} hashrateData={userHashrate} /> : null}
         </ScrollView>
       </Container>
     )

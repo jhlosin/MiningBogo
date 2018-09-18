@@ -55,7 +55,7 @@ export default class CoinDetail extends React.Component {
   render() {
     const { dashboardData, selectedCoin, userWorkers } = this.props.miningBogo
     const dashboardDataFortheSelectedCoin = dashboardData.find((item) => item.name === selectedCoin.coin) || {data: {}}
-    const workerDataFortheSelectedCoin = userWorkers.find(item => item.name === selectedCoin.coin) || {data: {}}
+    const workerDataFortheSelectedCoin = userWorkers.find(item => item.name === selectedCoin.coin) || {data: []}
     const dailyMiningData = dashboardDataFortheSelectedCoin.data.recent_credits || []
 
     const selectedCoinInfo = supportedCoins.find(item => item.name === selectedCoin.coin) || 'MH/s'

@@ -9,6 +9,12 @@ import CoinCard from './CoinCard'
 import supportedCoins from '../../config/supportedCoins'
 // Style
 
+const allBalancesDummyData = [
+  {coin: 'ethereum', confirmed: 0},
+  {coin: 'zcash', confirmed: 0},
+  {coin: 'monero', confirmed: 0},
+]
+
 // Component
 export default class CoinCardContainer extends React.Component {
   render() {
@@ -19,7 +25,7 @@ export default class CoinCardContainer extends React.Component {
         {
           _.map(supportedCoins, (supportedCoin) => {
             return allBalancesData.map((coinData) => {
-              const coinHashData = hashrateData.find((item) => item.coin === coinData.coin) || {}
+              const coinHashData = hashrateData.find((item) => item.coin === coinData.coin) || {coin: coinData.coin, data: {data: 0}}
               const thisCoinPrice = coinPrice.find((coin) => coin.name === coinData.coin) || {}
               if(coinData.coin === supportedCoin.name) {
                 return <CoinCard
@@ -42,7 +48,7 @@ export default class CoinCardContainer extends React.Component {
 }
 
 CoinCardContainer.defaultProps = {
-  allBalances: {},
+  allBalances: {data: allBalancesDummyData},
   hashrateData: [],
   coinPrice: []
 }

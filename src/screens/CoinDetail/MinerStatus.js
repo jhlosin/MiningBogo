@@ -83,12 +83,12 @@ const MinerStatus = ({ workserData, coinInfo }) => {
 }
 
 MinerStatus.propTypes = {
-  minerData: PropTypes.array,
+  workserData: PropTypes.array,
   coinInfo: PropTypes.object
 }
 
 MinerStatus.defaultProps = {
-  minerData: [],
+  workserData: [],
   coinInfo: {}
 }
 
